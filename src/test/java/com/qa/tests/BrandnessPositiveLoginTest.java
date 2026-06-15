@@ -1,6 +1,7 @@
 package com.qa.tests;
 
-
+import org.testng.annotations.DataProvider;
+import com.qa.utilities.ExcelReader;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -12,11 +13,30 @@ import java.time.Duration;
 import com.qa.utilities.Logger;
 import com.qa.base.BaseTest;
 import com.qa.pages.LoginPage;
-import com.qa.utilities.ConfigReader;
+
 
 public class BrandnessPositiveLoginTest extends BaseTest {
 
     LoginPage loginPage;
+
+    @DataProvider(name = "loginData")
+public Object[][] loginData() {
+
+    return new Object[][] {
+
+        {
+            ExcelReader.getCellData(
+                    "Login",
+                    1,
+                    0),
+
+            ExcelReader.getCellData(
+                    "Login",
+                    1,
+                    1)
+        }
+    };
+}
 
     @BeforeMethod
     public void startSetup() {
@@ -32,12 +52,15 @@ public class BrandnessPositiveLoginTest extends BaseTest {
         closeBrowser();
     }
 
-   @Test
-public void successfulLoginTest() {
+@Test(dataProvider = "loginData")
+public void successfulLoginTest(
+        String username,
+        String password) {
 
-    loginPage.login(
-            ConfigReader.getProperty("username"),
-            ConfigReader.getProperty("password"));
+
+loginPage.login(
+        username,
+        password);
 
     WebDriverWait wait =
             new WebDriverWait(
@@ -56,10 +79,11 @@ public void successfulLoginTest() {
             "Login Failed");
 
     Logger.pass(
-        "Login Successful");
+            "Login Successful");
 
     Logger.info(
-        "Current URL : "
-        + currentURL);
+            "Current URL : "
+            + currentURL);
 }
+
 }

@@ -42,10 +42,18 @@
             <scope>test</scope>
         </dependency>
 
-        <dependency>
+        <!-- Extent Reports -->
+<dependency>
     <groupId>com.aventstack</groupId>
     <artifactId>extentreports</artifactId>
     <version>5.1.1</version>
+</dependency>
+
+<!-- Apache POI -->
+<dependency>
+    <groupId>org.apache.poi</groupId>
+    <artifactId>poi-ooxml</artifactId>
+    <version>5.4.1</version>
 </dependency>
 
     </dependencies>
@@ -67,5 +75,7 @@
 
     </plugins>
 </build>
+
+
 
 </project>
