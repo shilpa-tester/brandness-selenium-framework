@@ -10,6 +10,10 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    env:
+      BRANDNESS_USERNAME: ${{ secrets.BRANDNESS_USERNAME }}
+      BRANDNESS_PASSWORD: ${{ secrets.BRANDNESS_PASSWORD }}
+
     steps:
 
       - name: Checkout Code
