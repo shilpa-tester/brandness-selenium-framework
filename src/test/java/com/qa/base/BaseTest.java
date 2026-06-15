@@ -40,6 +40,7 @@ public class BaseTest {
     LoginPage loginPage =
             new LoginPage(driver);
 
+
     loginPage.login(
             ConfigReader.getProperty("username"),
             ConfigReader.getProperty("password"));
