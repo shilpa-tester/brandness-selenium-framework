@@ -1,5 +1,8 @@
 package com.qa.base;
 
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import com.qa.utilities.Logger;
 import java.time.Duration;
 import org.openqa.selenium.WebDriver;
@@ -10,7 +13,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import com.qa.pages.LoginPage;
 import com.qa.utilities.ConfigReader;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
+
 
 public class BaseTest {
 
@@ -18,15 +21,48 @@ public class BaseTest {
 
     public void setupBrowser() {
 
-        WebDriverManager.chromedriver().setup();
+    String browser =
+            System.getProperty(
+                    "browser",
+                    "chrome");
 
-        driver = new ChromeDriver();
+    if (browser.equalsIgnoreCase(
+            "edge")) {
 
-        driver.manage().window().maximize();
+        WebDriverManager.edgedriver()
+                .setup();
 
-        driver.get(
-            ConfigReader.getProperty("url"));
+        driver =
+                new EdgeDriver();
     }
+
+    else if (browser.equalsIgnoreCase(
+            "firefox")) {
+
+        WebDriverManager.firefoxdriver()
+                .setup();
+
+        driver =
+                new FirefoxDriver();
+    }
+
+    else {
+
+        WebDriverManager.chromedriver()
+                .setup();
+
+        driver =
+                new ChromeDriver();
+    }
+
+    driver.manage()
+            .window()
+            .maximize();
+
+    driver.get(
+            ConfigReader.getProperty(
+                    "url"));
+}
 
     public void loginToApplication() {
 

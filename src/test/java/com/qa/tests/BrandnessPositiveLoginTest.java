@@ -19,23 +19,37 @@ public class BrandnessPositiveLoginTest extends BaseTest {
 
     LoginPage loginPage;
 
-    @DataProvider(name = "loginData")
+   @DataProvider(name = "loginData")
 public Object[][] loginData() {
 
-    return new Object[][] {
 
-        {
-            ExcelReader.getCellData(
-                    "Login",
-                    1,
-                    0),
+    int rowCount =
+            ExcelReader.getRowCount(
+                    "Login");
 
-            ExcelReader.getCellData(
-                    "Login",
-                    1,
-                    1)
-        }
-    };
+                    System.out.println(
+        "Row Count = "
+        + rowCount);
+
+    Object[][] data =
+            new Object[rowCount][2];
+
+    for (int i = 1; i <= rowCount; i++) {
+
+        data[i - 1][0] =
+                ExcelReader.getCellData(
+                        "Login",
+                        i,
+                        0);
+
+        data[i - 1][1] =
+                ExcelReader.getCellData(
+                        "Login",
+                        i,
+                        1);
+    }
+
+    return data;
 }
 
     @BeforeMethod
@@ -58,9 +72,9 @@ public void successfulLoginTest(
         String password) {
 
 
-loginPage.login(
-        username,
-        password);
+    loginPage.login(
+            username,
+            password);
 
     WebDriverWait wait =
             new WebDriverWait(

@@ -45,4 +45,35 @@ public class ExcelReader {
 
         return "";
     }
+
+   public static int getRowCount(
+        String sheetName) {
+
+    try {
+
+        FileInputStream file =
+                new FileInputStream(
+                        "src/test/resources/testdata/LoginData.xlsx");
+
+        XSSFWorkbook workbook =
+                new XSSFWorkbook(file);
+
+        XSSFSheet sheet =
+                workbook.getSheet(sheetName);
+
+        int rowCount =
+                sheet.getLastRowNum();
+
+        workbook.close();
+
+        return rowCount;
+    }
+
+    catch (Exception e) {
+
+        e.printStackTrace();
+    }
+
+    return 0;
+} 
 }
