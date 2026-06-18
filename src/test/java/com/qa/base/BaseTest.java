@@ -59,6 +59,7 @@ public class BaseTest {
             .window()
             .maximize();
 
+            driver.manage().deleteAllCookies();
     driver.get(
             ConfigReader.getProperty(
                     "url"));

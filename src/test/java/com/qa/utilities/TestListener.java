@@ -41,7 +41,12 @@ if (testName == null
             result.getMethod()
                     .getMethodName();
 }
-test = extent.createTest(testName);
+String parameters =
+        java.util.Arrays.toString(
+                result.getParameters());
+
+test = extent.createTest(
+        testName + " " + parameters);
 
     String className =
             result.getTestClass()

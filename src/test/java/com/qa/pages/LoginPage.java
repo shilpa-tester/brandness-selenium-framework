@@ -47,7 +47,9 @@ public class LoginPage extends BasePage {
 
     loginButton.click();
 
-    }
+    System.out.println(
+            "Login button clicked");
+}
 
     public String getErrorMessage() {
 
@@ -68,9 +70,15 @@ public class LoginPage extends BasePage {
     public void login(String email,
                   String password) {
 
+    System.out.println("Entering Email");
+
     enterEmail(email);
 
+    System.out.println("Entering Password");
+
     enterPassword(password);
+
+    System.out.println("Clicking Login");
 
     clickLogin();
 }
