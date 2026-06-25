@@ -26,7 +26,7 @@ public void setup() {
     setupBrowser();
 
     contactPage =
-            new ContactManagementPage(driver);
+            new ContactManagementPage(getDriver());
 
     loginToApplication();
 }
@@ -39,15 +39,15 @@ public void goToDashboard() {
 
     System.out.println(
         "BeforeMethod URL: "
-        + driver.getCurrentUrl());
+        + getDriver().getCurrentUrl());
 
-    driver.get(
+    getDriver().get(
         ConfigReader.getProperty(
                 "dashboardUrl"));
 
     System.out.println(
         "After navigation URL: "
-        + driver.getCurrentUrl());
+        + getDriver().getCurrentUrl());
 }
 
     // ==========================
@@ -218,7 +218,7 @@ public void goToDashboard() {
         Thread.sleep(2000);
 
         // App should not crash
-        String currentURL = driver.getCurrentUrl();
+        String currentURL = getDriver().getCurrentUrl();
 
         Assert.assertTrue(
                 currentURL.contains("dashboard"),
@@ -282,7 +282,7 @@ public void goToDashboard() {
         Thread.sleep(2000);
 
         // App should not crash
-        String currentURL = driver.getCurrentUrl();
+        String currentURL = getDriver().getCurrentUrl();
 
         Assert.assertTrue(
                 currentURL.contains("dashboard"),
@@ -315,7 +315,7 @@ public void goToDashboard() {
         Thread.sleep(2000);
 
         // App should not crash
-        String currentURL = driver.getCurrentUrl();
+        String currentURL = getDriver().getCurrentUrl();
 
         Assert.assertTrue(
                 currentURL.contains("dashboard"),
@@ -344,7 +344,7 @@ public void goToDashboard() {
         Thread.sleep(2000);
 
         // App should not crash
-        String currentURL = driver.getCurrentUrl();
+        String currentURL = getDriver().getCurrentUrl();
 
         Assert.assertTrue(
                 currentURL.contains("dashboard"),
@@ -368,7 +368,7 @@ public void goToDashboard() {
         // Name and email fields should be visible
         // by default (New tab active)
         boolean nameVisible =
-                driver.findElements(
+                getDriver().findElements(
                         ContactManagementLocators
                                 .nameInput)
                         .size() > 0;
@@ -397,7 +397,7 @@ public void goToDashboard() {
         Thread.sleep(1000);
 
         // App should not crash
-        String currentURL = driver.getCurrentUrl();
+        String currentURL = getDriver().getCurrentUrl();
 
         Assert.assertTrue(
                 currentURL.contains("dashboard"),
@@ -420,7 +420,7 @@ public void goToDashboard() {
 
         // Check outstanding invitations visible
         boolean invitationsVisible =
-                driver.findElements(
+                getDriver().findElements(
                         ContactManagementLocators
                                 .outstandingInvitations)
                         .size() > 0;
@@ -437,7 +437,7 @@ public void goToDashboard() {
 
             // App should not crash
             String currentURL =
-                    driver.getCurrentUrl();
+                    getDriver().getCurrentUrl();
 
             Assert.assertTrue(
                     currentURL.contains("dashboard"),

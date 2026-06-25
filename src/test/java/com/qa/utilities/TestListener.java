@@ -97,16 +97,18 @@ public void onTestFailure(
         String screenshotPath =
                 ScreenshotUtility
                         .captureScreenshot(
-                                BaseTest.driver,
+                                BaseTest.getDriver(),
                                 result.getName());
 
         try {
 
            test.fail("Screenshot below");
 
-test.addScreenCaptureFromPath(
-        screenshotPath,
-        "Failure Screenshot");
+if (screenshotPath != null) {
+    test.addScreenCaptureFromPath(
+            screenshotPath,
+            "Failure Screenshot");
+}
 
         } catch (Exception e) {
 

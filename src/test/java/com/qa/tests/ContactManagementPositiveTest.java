@@ -24,7 +24,7 @@ public void setup() throws InterruptedException {
     setupBrowser();
 
     contactPage =
-            new ContactManagementPage(driver);
+            new ContactManagementPage(getDriver());
 
     loginToApplication();
 }
@@ -35,23 +35,23 @@ public void setup() throws InterruptedException {
 @BeforeMethod
 public void goToDashboard() {
 
-    driver.get(
+    getDriver().get(
         "https://test.brandness.thoughtlinedigital.com/admin/dashboard");
 
-    if (driver.getCurrentUrl().contains("/auth")) {
+    if (getDriver().getCurrentUrl().contains("/auth")) {
 
         System.out.println(
             "Session expired. Logging in again.");
 
         loginToApplication();
 
-        driver.get(
+        getDriver().get(
             "https://test.brandness.thoughtlinedigital.com/admin/dashboard");
     }
 
     System.out.println(
         "Current URL: "
-        + driver.getCurrentUrl());
+        + getDriver().getCurrentUrl());
 }
 
     // ==========================
@@ -100,7 +100,7 @@ public void verifyContactsPanelOpens()
 
 
 
-        String pageSource = driver.getPageSource();
+        String pageSource = getDriver().getPageSource();
 
         boolean titleCorrect =
                 pageSource.contains(
@@ -155,7 +155,7 @@ public void verifyOutstandingInvitationsSection()
     contactPage.waitForPanel();
 
 
-    String pageSource = driver.getPageSource();
+    String pageSource = getDriver().getPageSource();
 
     boolean sectionVisible =
             pageSource.contains(
@@ -311,7 +311,7 @@ public void verifyOutstandingInvitationsSection()
         
 
         // App should not crash
-        String currentURL = driver.getCurrentUrl();
+        String currentURL = getDriver().getCurrentUrl();
 
         Assert.assertTrue(
                 currentURL.contains("dashboard"),
@@ -363,7 +363,7 @@ public void verifyOutstandingInvitationsSection()
 public void verifyContactsPanelClosesWithX()
         throws InterruptedException {
 
-    if (driver.getCurrentUrl().contains("/auth")) {
+    if (getDriver().getCurrentUrl().contains("/auth")) {
 
         loginToApplication();
     }
@@ -394,7 +394,7 @@ public void verifyContactsCountDisplayed() {
     contactPage.waitForPanel();
 
     boolean countVisible =
-            driver.findElements(
+            getDriver().findElements(
                     ContactManagementLocators
                             .contactsCountButton)
                     .size() > 0;

@@ -3,6 +3,8 @@ package com.qa.tests;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
+
+
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.annotations.Listeners;
@@ -24,7 +26,7 @@ public void setup() {
     setupBrowser();
 
     dashboardPage =
-            new DashboardPage(driver);
+            new DashboardPage(getDriver());
 
     loginToApplication();
 }
@@ -33,23 +35,23 @@ public void setup() {
 @BeforeMethod
 public void goToDashboard() {
 
-    driver.get(
+    getDriver().get(
         ConfigReader.getProperty(
                 "dashboardUrl"));
 
-    if(driver.getCurrentUrl()
+    if(getDriver().getCurrentUrl()
             .contains("auth")) {
 
         loginToApplication();
 
-        driver.get(
+        getDriver().get(
             ConfigReader.getProperty(
                     "dashboardUrl"));
     }
 
     System.out.println(
             "Current URL: "
-            + driver.getCurrentUrl());
+            + getDriver().getCurrentUrl());
 }
 
     // Runs ONCE — close browser
@@ -85,7 +87,7 @@ public void goToDashboard() {
         dashboardPage.clickConfigure();
 
         
-        String currentURL = driver.getCurrentUrl();
+        String currentURL = getDriver().getCurrentUrl();
 
         System.out.println(currentURL);
 
@@ -133,7 +135,7 @@ public void goToDashboard() {
         dashboardPage.clickNewDashboard();
 
        
-        String currentURL = driver.getCurrentUrl();
+        String currentURL = getDriver().getCurrentUrl();
 
         System.out.println(currentURL);
 
@@ -154,7 +156,7 @@ public void goToDashboard() {
                 "25 per pagina");
 
        
-        String pageSource = driver.getPageSource();
+        String pageSource = getDriver().getPageSource();
 
         Assert.assertTrue(
                 pageSource.contains("25 per pagina"),

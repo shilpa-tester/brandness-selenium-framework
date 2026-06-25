@@ -9,6 +9,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
+
 import java.time.Duration;
 
 
@@ -29,7 +31,7 @@ public class DashboardNegativeTest extends BaseTest {
         setupBrowser();
 
         
-        dashboardPage = new DashboardPage(driver);
+        dashboardPage = new DashboardPage(getDriver());
 
         loginToApplication();
 
@@ -39,23 +41,23 @@ public class DashboardNegativeTest extends BaseTest {
 @BeforeMethod
 public void goToDashboard() {
 
-    driver.get(
+    getDriver().get(
         ConfigReader.getProperty(
                 "dashboardUrl"));
 
-    if(driver.getCurrentUrl()
+    if(getDriver().getCurrentUrl()
             .contains("auth")) {
 
         loginToApplication();
 
-        driver.get(
+       getDriver().get(
             ConfigReader.getProperty(
                     "dashboardUrl"));
     }
 
     System.out.println(
             "Current URL: "
-            + driver.getCurrentUrl());
+            + getDriver().getCurrentUrl());
     }
 
     @AfterClass
@@ -83,7 +85,7 @@ public void goToDashboard() {
                 dashboardPage.isNoResultsDisplayed();
 
         int rowCount =
-                driver.findElements(
+                getDriver().findElements(
                         org.openqa.selenium.By.xpath(
                             "//table//tbody//tr"))
                         .size();
@@ -112,7 +114,7 @@ public void goToDashboard() {
 
         // App should not crash — URL should still
         // be dashboard
-        String currentURL = driver.getCurrentUrl();
+        String currentURL = getDriver().getCurrentUrl();
 
         Assert.assertTrue(
                 currentURL.contains("dashboard"),
@@ -131,7 +133,7 @@ public void goToDashboard() {
 
         
 
-        String currentURL = driver.getCurrentUrl();
+        String currentURL = getDriver().getCurrentUrl();
 
         Assert.assertTrue(
                 currentURL.contains("dashboard"),
@@ -151,7 +153,7 @@ public void goToDashboard() {
        
         // Should show all results or no results
         // but not crash
-        String currentURL = driver.getCurrentUrl();
+        String currentURL = getDriver().getCurrentUrl();
 
         Assert.assertTrue(
                 currentURL.contains("dashboard"),
@@ -171,7 +173,7 @@ public void verifySearchBoxClearsCorrectly()
 
     // Get the search box
     WebElement search =
-            driver.findElement(
+            getDriver().findElement(
                     com.qa.locators.DashboardPageLocators
                             .searchBox);
 
@@ -216,7 +218,7 @@ public void verifySearchBoxClearsCorrectly()
        
 
         // App should not crash
-        String currentURL = driver.getCurrentUrl();
+        String currentURL = getDriver().getCurrentUrl();
 
         Assert.assertTrue(
                 currentURL.contains("dashboard"),
@@ -270,7 +272,7 @@ public void verifySearchBoxClearsCorrectly()
         // All 7 dashboards should be visible
         // (less than 100)
         int rowCount =
-                driver.findElements(
+                getDriver().findElements(
                         org.openqa.selenium.By.xpath(
                             "//table//tbody//tr"))
                         .size();
@@ -300,20 +302,20 @@ public void verifyNewDashboardButtonIsVisible() {
     @Test
 public void verifyPageDoesNotCrashAfterNavigation() {
 
-    driver.navigate().refresh();
+    getDriver().navigate().refresh();
 
-    if(driver.getCurrentUrl()
+    if(getDriver().getCurrentUrl()
             .contains("auth")) {
 
         loginToApplication();
 
-        driver.get(
+        getDriver().get(
             ConfigReader.getProperty(
                     "dashboardUrl"));
     }
 
     Assert.assertTrue(
-            driver.getCurrentUrl()
+            getDriver().getCurrentUrl()
                     .contains("dashboard"),
             "Page broken after refresh");
 
@@ -328,21 +330,21 @@ public void verifyPageRefreshKeepsData()
     int rowsBefore =
             dashboardPage.getDashboardRowCount();
 
-    driver.navigate().refresh();
+    getDriver().navigate().refresh();
 
-    if (driver.getCurrentUrl()
+    if (getDriver().getCurrentUrl()
             .contains("auth")) {
 
         loginToApplication();
 
-        driver.get(
+        getDriver().get(
             ConfigReader.getProperty(
                     "dashboardUrl"));
     }
 
     WebDriverWait wait =
             new WebDriverWait(
-                    driver,
+                    getDriver(),
                     Duration.ofSeconds(20));
 
     wait.until(
@@ -376,7 +378,7 @@ public void verifyPageRefreshKeepsData()
       
 
         // Then change pagination — should not crash
-        String currentURL = driver.getCurrentUrl();
+        String currentURL = getDriver().getCurrentUrl();
 
         Assert.assertTrue(
                 currentURL.contains("dashboard"),
@@ -394,7 +396,7 @@ public void verifyAllTableColumnsVisible() {
 
     WebDriverWait wait =
             new WebDriverWait(
-                    driver,
+                    getDriver(),
                     Duration.ofSeconds(10));
 
     wait.until(
@@ -402,15 +404,15 @@ public void verifyAllTableColumnsVisible() {
                     By.xpath("//th[contains(text(),'Dashboard naam')]")));
 
     Assert.assertTrue(
-            driver.getPageSource()
+            getDriver().getPageSource()
                     .contains("Dashboard naam"));
 
     Assert.assertTrue(
-            driver.getPageSource()
+            getDriver().getPageSource()
                     .contains("Contacten"));
 
     Assert.assertTrue(
-            driver.getPageSource()
+            getDriver().getPageSource()
                     .contains("Acties"));
 
     System.out.println(

@@ -1,5 +1,6 @@
 package com.qa.tests;
 
+
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -17,7 +18,7 @@ public class NegativeLoginTest extends BaseTest {
 
         setupBrowser();
 
-        loginPage = new LoginPage(driver);
+        loginPage = new LoginPage(getDriver());
     }
 
     @AfterMethod
@@ -33,7 +34,7 @@ public class NegativeLoginTest extends BaseTest {
     @Test
     public void invalidUsernameTest(){
             
-        String loginURL = driver.getCurrentUrl();
+        String loginURL = getDriver().getCurrentUrl();
 
         loginPage.enterEmail("wrong@test.com");
 
@@ -43,7 +44,7 @@ public class NegativeLoginTest extends BaseTest {
 
         
         Assert.assertEquals(
-                driver.getCurrentUrl(),
+                getDriver().getCurrentUrl(),
                 loginURL);
 
         System.out.println("[PASS] Invalid Username Test Passed");
@@ -60,7 +61,7 @@ public class NegativeLoginTest extends BaseTest {
     @Test
     public void invalidPasswordTest(){            
 
-        String loginURL = driver.getCurrentUrl();
+        String loginURL = getDriver().getCurrentUrl();
 
         loginPage.enterEmail(
                 "jabdul@thoughtlinetech.com");
@@ -71,7 +72,7 @@ public class NegativeLoginTest extends BaseTest {
 
         
         Assert.assertEquals(
-                driver.getCurrentUrl(),
+                getDriver().getCurrentUrl(),
                 loginURL);
 
         System.out.println("[PASS] Invalid Password Test Passed");
@@ -89,7 +90,7 @@ public class NegativeLoginTest extends BaseTest {
     public void invalidUsernamePasswordTest(){
           
 
-        String loginURL = driver.getCurrentUrl();
+        String loginURL = getDriver().getCurrentUrl();
 
         loginPage.enterEmail("wrong@test.com");
 
@@ -99,7 +100,7 @@ public class NegativeLoginTest extends BaseTest {
 
         
         Assert.assertEquals(
-                driver.getCurrentUrl(),
+                getDriver().getCurrentUrl(),
                 loginURL);
 
         System.out.println("[PASS] Invalid Username + Password Test Passed");
@@ -117,7 +118,7 @@ public class NegativeLoginTest extends BaseTest {
     public void emptyUsernameTest(){
             
 
-        String loginURL = driver.getCurrentUrl();
+        String loginURL = getDriver().getCurrentUrl();
 
         loginPage.enterEmail("");
 
@@ -128,7 +129,7 @@ public class NegativeLoginTest extends BaseTest {
     
 
         Assert.assertEquals(
-                driver.getCurrentUrl(),
+                getDriver().getCurrentUrl(),
                 loginURL);
 
         System.out.println("[PASS] Empty Username Validation Passed");
@@ -146,7 +147,7 @@ public class NegativeLoginTest extends BaseTest {
     public void emptyPasswordTest(){
             
 
-        String loginURL = driver.getCurrentUrl();
+        String loginURL = getDriver().getCurrentUrl();
 
         loginPage.enterEmail(
                 "jabdul@thoughtlinetech.com");
@@ -157,7 +158,7 @@ public class NegativeLoginTest extends BaseTest {
 
       
         Assert.assertEquals(
-                driver.getCurrentUrl(),
+                getDriver().getCurrentUrl(),
                 loginURL);
 
         System.out.println("[PASS] Empty Password Validation Passed");
@@ -175,7 +176,7 @@ public class NegativeLoginTest extends BaseTest {
     public void emptyCredentialsTest(){
             
 
-        String loginURL = driver.getCurrentUrl();
+        String loginURL = getDriver().getCurrentUrl();
 
         loginPage.enterEmail("");
 
@@ -185,7 +186,7 @@ public class NegativeLoginTest extends BaseTest {
 
         
         Assert.assertEquals(
-                driver.getCurrentUrl(),
+                getDriver().getCurrentUrl(),
                 loginURL);
 
         System.out.println("[PASS] Empty Credentials Validation Passed");
@@ -203,7 +204,7 @@ public class NegativeLoginTest extends BaseTest {
     public void sqlInjectionTest(){
             
 
-        String loginURL = driver.getCurrentUrl();
+        String loginURL = getDriver().getCurrentUrl();
 
         loginPage.enterEmail("' OR '1'='1");
 
@@ -213,7 +214,7 @@ public class NegativeLoginTest extends BaseTest {
 
        
         Assert.assertEquals(
-                driver.getCurrentUrl(),
+                getDriver().getCurrentUrl(),
                 loginURL);
 
         System.out.println("[PASS] SQL Injection Test Passed");

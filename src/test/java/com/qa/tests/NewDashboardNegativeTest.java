@@ -1,5 +1,6 @@
 package com.qa.tests;
 
+
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -27,10 +28,10 @@ public void setup(){
     setupBrowser();
 
     dashboardPage =
-            new DashboardPage(driver);
+            new DashboardPage(getDriver());
 
     newDashboardPage =
-            new NewDashboardPage(driver);
+            new NewDashboardPage(getDriver());
 
     loginToApplication();
 }
@@ -42,7 +43,7 @@ public void setup(){
 public void goToDashboard(){
         
 
-    driver.get(
+    getDriver().get(
         ConfigReader.getProperty(
                 "dashboardUrl"));
 
@@ -165,7 +166,7 @@ public void goToDashboard(){
 
         
         // App should not crash
-        String currentURL = driver.getCurrentUrl();
+        String currentURL = getDriver().getCurrentUrl();
 
         Assert.assertTrue(
                 currentURL.contains("dashboard"),
@@ -195,7 +196,7 @@ public void goToDashboard(){
 
         
         // App should not crash
-        String currentURL = driver.getCurrentUrl();
+        String currentURL = getDriver().getCurrentUrl();
 
         Assert.assertTrue(
                 currentURL.contains("dashboard"),
@@ -275,7 +276,7 @@ public void goToDashboard(){
         newDashboardPage.clickGoogleAdsDropdown();
 
         
-        String currentURL = driver.getCurrentUrl();
+        String currentURL = getDriver().getCurrentUrl();
 
         Assert.assertTrue(
                 currentURL.contains("dashboard"),
@@ -300,7 +301,7 @@ public void goToDashboard(){
         newDashboardPage.clickGA4Dropdown();
 
        
-        String currentURL = driver.getCurrentUrl();
+        String currentURL = getDriver().getCurrentUrl();
 
         Assert.assertTrue(
                 currentURL.contains("dashboard"),

@@ -13,103 +13,84 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import com.qa.pages.LoginPage;
 import com.qa.utilities.ConfigReader;
 
-
-
 public class BaseTest {
 
-    public static WebDriver driver;
+    private static ThreadLocal<WebDriver> driver =
+            new ThreadLocal<>();
+
+    public static WebDriver getDriver() {
+        return driver.get();
+    }
 
     public void setupBrowser() {
 
-    String browser =
-            System.getProperty(
-                    "browser",
-                    "chrome");
+        String browser =
+                System.getProperty("browser", "chrome");
 
-    if (browser.equalsIgnoreCase(
-            "edge")) {
+        if (browser.equalsIgnoreCase("edge")) {
 
-        WebDriverManager.edgedriver()
-                .setup();
+            WebDriverManager.edgedriver().setup();
+            driver.set(new EdgeDriver());
 
-        driver =
-                new EdgeDriver();
+        } else if (browser.equalsIgnoreCase("firefox")) {
+
+            WebDriverManager.firefoxdriver().setup();
+            driver.set(new FirefoxDriver());
+
+        } else {
+
+            WebDriverManager.chromedriver().setup();
+            driver.set(new ChromeDriver());
+        }
+
+        getDriver().manage().window().maximize();
+        getDriver().manage().deleteAllCookies();
+
+        getDriver().get(
+                ConfigReader.getProperty("url"));
     }
-
-    else if (browser.equalsIgnoreCase(
-            "firefox")) {
-
-        WebDriverManager.firefoxdriver()
-                .setup();
-
-        driver =
-                new FirefoxDriver();
-    }
-
-    else {
-
-        WebDriverManager.chromedriver()
-                .setup();
-
-        driver =
-                new ChromeDriver();
-    }
-
-    driver.manage()
-            .window()
-            .maximize();
-
-            driver.manage().deleteAllCookies();
-    driver.get(
-            ConfigReader.getProperty(
-                    "url"));
-}
 
     public void loginToApplication() {
 
-    driver.get(
-        ConfigReader.getProperty("url"));
+        getDriver().get(
+                ConfigReader.getProperty("url"));
 
-    Logger.info(
-        "Login page loaded: "
-        + driver.getCurrentUrl());
+        Logger.info(
+                "Login page loaded: "
+                + getDriver().getCurrentUrl());
 
-    LoginPage loginPage =
-            new LoginPage(driver);
+        LoginPage loginPage =
+                new LoginPage(getDriver());
 
+        loginPage.login(
+                ConfigReader.getProperty("username"),
+                ConfigReader.getProperty("password"));
 
-    loginPage.login(
-            ConfigReader.getProperty("username"),
-            ConfigReader.getProperty("password"));
+        Logger.info(
+                "After login click: "
+                + getDriver().getCurrentUrl());
 
-    Logger.info(
-        "After login click: "
-        + driver.getCurrentUrl());
+        WebDriverWait wait =
+                new WebDriverWait(
+                        getDriver(),
+                        Duration.ofSeconds(30));
 
-    WebDriverWait wait =
-            new WebDriverWait(
-                    driver,
-                    Duration.ofSeconds(30));
+        wait.until(
+                ExpectedConditions.or(
+                        ExpectedConditions.urlContains("dashboard"),
+                        ExpectedConditions.urlContains("admin")));
 
-    wait.until(
-        ExpectedConditions.or(
-            ExpectedConditions.urlContains(
-                    "dashboard"),
-            ExpectedConditions.urlContains(
-                    "admin")));
-
-Logger.pass(
-        "Logged in successfully");
-}
+        Logger.pass("Logged in successfully");
+    }
 
     public void closeBrowser() {
 
-    if (driver != null) {
+        if (getDriver() != null) {
 
-        Logger.info(
-                "Closing browser");
+            Logger.info("Closing browser");
 
-        driver.quit();
+            getDriver().quit();
+            driver.remove();
+        }
     }
-}
 }

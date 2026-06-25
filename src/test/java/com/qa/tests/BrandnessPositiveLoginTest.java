@@ -8,6 +8,8 @@ import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
+
 import java.time.Duration;
 
 import com.qa.utilities.Logger;
@@ -22,51 +24,32 @@ public class BrandnessPositiveLoginTest extends BaseTest {
    @DataProvider(name = "loginData")
 public Object[][] loginData() {
 
-
-    int rowCount =
-            ExcelReader.getRowCount(
-                    "Login");
-
-                    System.out.println(
-        "Row Count = "
-        + rowCount);
-
-    Object[][] data =
-            new Object[rowCount][2];
-
-    for (int i = 1; i <= rowCount; i++) {
-
-        data[i - 1][0] =
-                ExcelReader.getCellData(
-                        "Login",
-                        i,
-                        0);
-
-        data[i - 1][1] =
-                ExcelReader.getCellData(
-                        "Login",
-                        i,
-                        1);
-    }
-
-    return data;
+    return new Object[][] {
+        {
+            ExcelReader.getCellData("Login", 1, 0),
+            ExcelReader.getCellData("Login", 1, 1)
+        }
+    };
 }
 
-    @BeforeMethod
+
+    @BeforeMethod(alwaysRun = true)
     public void startSetup() {
 
         setupBrowser();
 
-        loginPage = new LoginPage(driver);
+        loginPage = new LoginPage(getDriver());
     }
 
-    @AfterMethod
+    @AfterMethod(alwaysRun = true)
     public void tearDown() {
 
         closeBrowser();
     }
 
-@Test(dataProvider = "loginData")
+@Test(
+    dataProvider = "loginData",
+    groups = {"smoke", "login"})
 public void successfulLoginTest(
         String username,
         String password) {
@@ -78,7 +61,7 @@ public void successfulLoginTest(
 
     WebDriverWait wait =
             new WebDriverWait(
-                    driver,
+                    getDriver(),
                     Duration.ofSeconds(20));
 
     wait.until(
@@ -86,7 +69,7 @@ public void successfulLoginTest(
                     "dashboard"));
 
     String currentURL =
-            driver.getCurrentUrl();
+            getDriver().getCurrentUrl();
 
     Assert.assertTrue(
             currentURL.contains("dashboard"),

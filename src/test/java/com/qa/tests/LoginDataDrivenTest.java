@@ -8,6 +8,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+
 import java.time.Duration;
 
 import com.qa.base.BaseTest;
@@ -54,22 +55,23 @@ public Object[][] loginData() {
 
 
 
-    @BeforeMethod
+   @BeforeMethod(alwaysRun = true)
     public void startSetup() {
 
         setupBrowser();
 
-        loginPage = new LoginPage(driver);
+        loginPage = new LoginPage(getDriver());
     }
 
-    @AfterMethod
+    @AfterMethod(alwaysRun = true)
     public void tearDown() {
 
         closeBrowser();
     }
 @Test(
     dataProvider = "loginData",
-    description = "Excel Driven Login Test")
+    description = "Excel Driven Login Test",
+    groups = {"smoke", "regression", "login"})
 
 public void loginTest(
         String username,
@@ -86,7 +88,7 @@ if (expectedResult.equalsIgnoreCase(
 
     WebDriverWait wait =
             new WebDriverWait(
-                    driver,
+                    getDriver(),
                     Duration.ofSeconds(20));
 
     wait.until(
@@ -97,7 +99,7 @@ if (expectedResult.equalsIgnoreCase(
 Thread.sleep(5000);
 
 String currentURL =
-        driver.getCurrentUrl();
+       getDriver().getCurrentUrl();
 
 System.out.println(
         "Current URL = "

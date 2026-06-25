@@ -13,6 +13,7 @@
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
+        <suiteXmlFile>testng-smoke.xml</suiteXmlFile>
     </properties>
 
     <name>demoapp</name>
@@ -67,10 +68,10 @@
             <version>3.5.4</version>
 
             <configuration>
-                <suiteXmlFiles>
-                    <suiteXmlFile>testng.xml</suiteXmlFile>
-                </suiteXmlFiles>
-            </configuration>
+    <suiteXmlFiles>
+        <suiteXmlFile>${suiteXmlFile}</suiteXmlFile>
+    </suiteXmlFiles>
+</configuration>
         </plugin>
 
     </plugins>

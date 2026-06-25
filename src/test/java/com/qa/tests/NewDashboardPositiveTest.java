@@ -27,10 +27,10 @@ public void setup(){
     setupBrowser();
 
     dashboardPage =
-            new DashboardPage(driver);
+            new DashboardPage(getDriver());
 
     newDashboardPage =
-            new NewDashboardPage(driver);
+            new NewDashboardPage(getDriver());
 
     loginToApplication();
 }
@@ -42,7 +42,7 @@ public void setup(){
 public void goToDashboard(){
         
 
-    driver.get(
+    getDriver().get(
         ConfigReader.getProperty(
                 "dashboardUrl"));
 
@@ -145,7 +145,7 @@ public void verifyNewDashboardModalOpens() {
         newDashboardPage.clickGoogleAdsDropdown();
 
         
-        String currentURL = driver.getCurrentUrl();
+        String currentURL = getDriver().getCurrentUrl();
 
         Assert.assertTrue(
                 currentURL.contains("dashboard"),
@@ -170,7 +170,7 @@ public void verifyNewDashboardModalOpens() {
         newDashboardPage.clickGA4Dropdown();
 
        
-        String currentURL = driver.getCurrentUrl();
+        String currentURL = getDriver().getCurrentUrl();
 
         Assert.assertTrue(
                 currentURL.contains("dashboard"),
