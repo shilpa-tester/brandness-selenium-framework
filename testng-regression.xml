@@ -17,6 +17,8 @@
             <class name="com.qa.tests.ContactManagementNegativeTest"/>
             <class name="com.qa.tests.NewDashboardPositiveTest"/>
             <class name="com.qa.tests.NewDashboardNegativeTest"/>
+            <class name="com.qa.tests.LoginDataDrivenTest"/>
+            <class name="com.qa.tests.NegativeLoginTest"/>
         </classes>
     </test>
 
