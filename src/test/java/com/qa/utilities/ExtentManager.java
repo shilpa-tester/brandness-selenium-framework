@@ -12,52 +12,24 @@ public class ExtentManager {
         if (extent == null) {
 
             ExtentSparkReporter spark =
-        new ExtentSparkReporter(
-                "target/ExtentReport.html");
-
-spark.config().setReportName(
-        "Brandness Automation Regression Report");
-
-spark.config().setDocumentTitle(
-        "Brandness Test Execution Report");
+                    new ExtentSparkReporter("target/ExtentReport.html");
 
             spark.config().setReportName(
-                    "Brandness Automation Regression Report");
+                    "Brandness Automation Smoke Report");
 
             spark.config().setDocumentTitle(
                     "Brandness Test Execution Report");
 
             extent = new ExtentReports();
-
             extent.attachReporter(spark);
 
-            extent.setSystemInfo(
-                    "Application",
-                    "Brandness");
-
-            extent.setSystemInfo(
-                    "Framework",
-                    "Selenium + TestNG");
-
-            extent.setSystemInfo(
-                    "Language",
-                    "Java");
-
-            extent.setSystemInfo(
-                    "Browser",
-                    "Chrome");
-
-            extent.setSystemInfo(
-                    "Tester",
-                    "Shilpa");
-
-            extent.setSystemInfo(
-                    "Execution Type",
-                    "Regression Suite");
-
-            extent.setSystemInfo(
-                    "Environment",
-                    "QA");
+            extent.setSystemInfo("Application", "Brandness");
+            extent.setSystemInfo("Framework", "Selenium + TestNG");
+            extent.setSystemInfo("Language", "Java");
+            extent.setSystemInfo("Browser", "Chrome");
+            extent.setSystemInfo("Tester", "Shilpa");
+            extent.setSystemInfo("Execution Type", "Smoke Suite");
+            extent.setSystemInfo("Environment", "QA");
         }
 
         return extent;

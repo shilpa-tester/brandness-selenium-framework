@@ -8,7 +8,7 @@
         <listener class-name="com.qa.utilities.TestListener"/>
     </listeners>
 
-    <test name="Parallel Regression Test">
+    <suite name="Brandness Regression Suite">
         <classes>
             <class name="com.qa.tests.BrandnessPositiveLoginTest"/>
             <class name="com.qa.tests.LoginDataDrivenTest"/>
