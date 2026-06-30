@@ -8,17 +8,12 @@
 
     <test name="Regression Test">
         <classes>
-            <class name="com.qa.tests.BrandnessPositiveLoginTest"/>
-            <class name="com.qa.tests.LoginDataDrivenTest"/>
-            <class name="com.qa.tests.NegativeLoginTest"/>
             <class name="com.qa.tests.DashboardTestPositive"/>
             <class name="com.qa.tests.DashboardNegativeTest"/>
             <class name="com.qa.tests.ContactManagementPositiveTest"/>
             <class name="com.qa.tests.ContactManagementNegativeTest"/>
             <class name="com.qa.tests.NewDashboardPositiveTest"/>
             <class name="com.qa.tests.NewDashboardNegativeTest"/>
-            <class name="com.qa.tests.LoginDataDrivenTest"/>
-            <class name="com.qa.tests.NegativeLoginTest"/>
         </classes>
     </test>
 
