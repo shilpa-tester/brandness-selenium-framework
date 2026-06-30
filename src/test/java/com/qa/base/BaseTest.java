@@ -52,36 +52,57 @@ public class BaseTest {
 
     public void loginToApplication() {
 
-        getDriver().get(
-                ConfigReader.getProperty("url"));
+    for (int attempt = 1; attempt <= 2; attempt++) {
 
-        Logger.info(
-                "Login page loaded: "
-                + getDriver().getCurrentUrl());
+        try {
+            Thread.sleep(5000);
 
-        LoginPage loginPage =
-                new LoginPage(getDriver());
+            getDriver().get(
+                    ConfigReader.getProperty("url"));
 
-        loginPage.login(
-                ConfigReader.getProperty("username"),
-                ConfigReader.getProperty("password"));
+            Logger.info(
+                    "Login attempt: " + attempt);
 
-        Logger.info(
-                "After login click: "
-                + getDriver().getCurrentUrl());
+            Logger.info(
+                    "Login page loaded: "
+                    + getDriver().getCurrentUrl());
 
-        WebDriverWait wait =
-                new WebDriverWait(
-                        getDriver(),
-                        Duration.ofSeconds(30));
+            LoginPage loginPage =
+                    new LoginPage(getDriver());
 
-        wait.until(
-                ExpectedConditions.or(
-                        ExpectedConditions.urlContains("dashboard"),
-                        ExpectedConditions.urlContains("admin")));
+            loginPage.login(
+                    ConfigReader.getProperty("username"),
+                    ConfigReader.getProperty("password"));
 
-        Logger.pass("Logged in successfully");
+            Logger.info(
+                    "After login click: "
+                    + getDriver().getCurrentUrl());
+
+            WebDriverWait wait =
+                    new WebDriverWait(
+                            getDriver(),
+                            Duration.ofSeconds(30));
+
+            wait.until(
+                    ExpectedConditions.or(
+                            ExpectedConditions.urlContains("dashboard"),
+                            ExpectedConditions.urlContains("admin")));
+
+            Logger.pass("Logged in successfully");
+            return;
+
+        } catch (Exception e) {
+
+            Logger.info(
+                    "Login attempt failed: "
+                    + attempt);
+
+            if (attempt == 2) {
+                throw new RuntimeException(e);
+            }
+        }
     }
+}
 
     public void closeBrowser() {
 
