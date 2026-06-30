@@ -1,14 +1,12 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 
-<suite name="Brandness Regression Suite"
-       parallel="classes"
-       thread-count="2">
+<suite name="Brandness Regression Suite">
 
     <listeners>
         <listener class-name="com.qa.utilities.TestListener"/>
     </listeners>
 
-    <suite name="Brandness Regression Suite">
+    <test name="Regression Test">
         <classes>
             <class name="com.qa.tests.BrandnessPositiveLoginTest"/>
             <class name="com.qa.tests.LoginDataDrivenTest"/>
