@@ -71,9 +71,9 @@ public void successfulLoginTest(
     String currentURL =
             getDriver().getCurrentUrl();
 
-    Assert.assertTrue(
-            currentURL.contains("dashboard"),
-            "Login Failed");
+   Assert.assertTrue(
+        currentURL.contains("dashboard"),
+        "Login Failed");
 
     Logger.pass(
             "Login Successful");

@@ -86,32 +86,29 @@ test = extent.createTest(
 public void onTestFailure(
         ITestResult result) {
 
-    System.out.println(
-            "Inside onTestFailure");
+    System.out.println("Inside onTestFailure");
 
     if (test != null) {
 
-        test.fail(
-                result.getThrowable());
+        test.fail(result.getThrowable());
 
-        String screenshotPath =
-                ScreenshotUtility
-                        .captureScreenshot(
+        try {
+            if (BaseTest.getDriver() != null) {
+
+                String screenshotPath =
+                        ScreenshotUtility.captureScreenshot(
                                 BaseTest.getDriver(),
                                 result.getName());
 
-        try {
+                if (screenshotPath != null) {
 
-           test.fail("Screenshot below");
-
-if (screenshotPath != null) {
-    test.addScreenCaptureFromPath(
-            screenshotPath,
-            "Failure Screenshot");
-}
+                    test.addScreenCaptureFromPath(
+                            screenshotPath,
+                            "Failure Screenshot");
+                }
+            }
 
         } catch (Exception e) {
-
             e.printStackTrace();
         }
     }
