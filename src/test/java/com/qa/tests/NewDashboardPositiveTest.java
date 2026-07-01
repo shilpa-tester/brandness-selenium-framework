@@ -73,6 +73,54 @@ public void verifyNewDashboardModalOpens() {
 
     System.out.println(
             "New Dashboard modal opens test passed");
+
+    }
+
+@Test
+
+public void verifyDashboardCanBeCreated()
+        throws InterruptedException {
+
+    dashboardPage.clickNewDashboard();
+
+    newDashboardPage.waitForModal();
+
+    String dashboardName =
+            "Auto Dashboard "
+            + System.currentTimeMillis();
+
+    newDashboardPage.enterDashboardName(
+            dashboardName);
+
+    newDashboardPage.clickGoogleAdsDropdown();
+
+    newDashboardPage.selectFirstGoogleAdsOption();
+
+    Thread.sleep(2000);
+
+    newDashboardPage.clickGA4Dropdown();
+
+    newDashboardPage.selectFirstGA4Option();
+
+    newDashboardPage.clickCreateDashboard();
+
+    Thread.sleep(3000);
+
+    System.out.println(
+        "Validation/Error text: "
+        + newDashboardPage.getValidationErrorText());
+
+System.out.println(
+        "Current URL after create: "
+        + getDriver().getCurrentUrl());
+
+    Assert.assertTrue(
+            newDashboardPage.isModalClosed(),
+            "Dashboard was not created successfully");
+
+    System.out.println(
+            "Dashboard created successfully: "
+            + dashboardName);
 }
     // ==========================
     // CANCEL BUTTON TEST

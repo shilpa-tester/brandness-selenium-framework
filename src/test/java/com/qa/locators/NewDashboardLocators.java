@@ -56,4 +56,16 @@ public class NewDashboardLocators {
                 "//*[contains(text(),"
                 + "'Nieuw Dashboard Aanmaken')]");
 
+                // First Google Ads option
+public static By firstGoogleAdsOption =
+        By.xpath(
+            "(//div[@role='option'])[2]");
+
+// First GA4 option
+public static By firstGA4Option =
+        By.xpath(
+            "(//div[@role='option'])[2]");
+
+            // GA4 Dropdown
+
 }

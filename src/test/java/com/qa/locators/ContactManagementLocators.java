@@ -94,4 +94,16 @@ public static By newTab =
                 "(//button[.//*[contains("
                 + "@class,'lucide-users')]])[1]");
 
+                // First plus button in Existing tab
+public static By firstExistingUserAddButton =
+        By.xpath("(//button[.//*[contains(@class,'lucide-plus')]])[1]");
+
+// First delete button in Existing tab
+public static By firstExistingUserDeleteButton =
+        By.xpath("(//button[.//*[contains(@class,'lucide-trash')]])[1]");
+
+// Any panel card/user row
+public static By userCard =
+        By.xpath("//div[contains(@class,'rounded-lg')]");
+
 }

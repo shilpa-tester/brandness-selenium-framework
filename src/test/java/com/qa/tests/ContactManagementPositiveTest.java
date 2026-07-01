@@ -336,7 +336,7 @@ public void verifyOutstandingInvitationsSection()
         // Switch to Existing tab first
         contactPage.clickExistingTab();
 
-       
+       Thread.sleep(1500);
 
         // Switch back to New tab
         contactPage.clickNewTab();
@@ -402,5 +402,83 @@ public void verifyContactsCountDisplayed() {
     Assert.assertTrue(
             countVisible,
             "Contacts count not shown");
+}
+
+@Test
+public void verifyNewUserInviteWithUniqueData()
+        throws InterruptedException {
+
+    contactPage.openContactsPanel();
+
+    contactPage.waitForPanel();
+
+    contactPage.clickNewTab();
+
+    String uniqueName =
+            "Auto User "
+            + System.currentTimeMillis();
+
+    String uniqueEmail =
+            "autouser"
+            + System.currentTimeMillis()
+            + "@example.com";
+
+    contactPage.enterName(uniqueName);
+
+    contactPage.enterEmail(uniqueEmail);
+
+    contactPage.clickInvite();
+
+    Thread.sleep(3000);
+
+    Assert.assertTrue(
+            contactPage.isPanelOpen(),
+            "Panel closed or app crashed after invite");
+
+    System.out.println(
+            "Invite created with: "
+            + uniqueName
+            + " / "
+            + uniqueEmail);
+}
+
+
+
+@Test
+public void verifyExistingUserAddedSuccessfully()
+        throws InterruptedException {
+
+    contactPage.openContactsPanel();
+
+    contactPage.waitForPanel();
+
+    int beforeCount =
+            contactPage.getAccessUserCount();
+
+    System.out.println(
+            "User count before add: "
+            + beforeCount);
+
+    contactPage.clickExistingTab();
+
+    Thread.sleep(2000);
+
+    contactPage.clickFirstExistingUserAddButton();
+
+    Thread.sleep(3000);
+
+    int afterCount =
+            contactPage.getAccessUserCount();
+
+    System.out.println(
+            "User count after add: "
+            + afterCount);
+
+    Assert.assertTrue(
+            afterCount > beforeCount,
+            "Existing user was not added successfully");
+
+    System.out.println(
+            "Existing user added successfully");
 }
 }

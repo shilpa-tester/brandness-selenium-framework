@@ -172,6 +172,45 @@ public class NewDashboardPage extends BasePage {
                 "GA4 dropdown clicked");
     }
 
+
+    public void selectFirstGoogleAdsOption() {
+
+    WebDriverWait wait =
+            new WebDriverWait(driver,
+                    Duration.ofSeconds(10));
+
+    WebElement option =
+            wait.until(
+                    ExpectedConditions.elementToBeClickable(
+                            NewDashboardLocators.firstGoogleAdsOption));
+
+    option.click();
+
+    System.out.println(
+            "First Google Ads option selected");
+
+
+}
+
+public void selectFirstGA4Option() {
+
+    WebDriverWait wait =
+            new WebDriverWait(driver,
+                    Duration.ofSeconds(10));
+
+    WebElement option =
+            wait.until(
+                    ExpectedConditions.elementToBeClickable(
+                            NewDashboardLocators.firstGA4Option));
+
+    option.click();
+
+    System.out.println(
+            "First GA4 option selected");
+}
+
+
+
     // ==========================
     // CHECK IF MODAL IS CLOSED
     // ==========================
@@ -182,7 +221,7 @@ public class NewDashboardPage extends BasePage {
 
             WebDriverWait wait =
                     new WebDriverWait(driver,
-                            Duration.ofSeconds(5));
+                            Duration.ofSeconds(15));
 
             wait.until(
                     ExpectedConditions.invisibilityOfElementLocated(

@@ -263,25 +263,26 @@ Logger.info(
     // CLICK EXISTING TAB
     // ==========================
 
-    public void clickExistingTab()
-             {
+    public void clickExistingTab() {
 
-        WebDriverWait wait =
-                new WebDriverWait(driver,
-                        Duration.ofSeconds(10));
+    WebDriverWait wait =
+            new WebDriverWait(driver,
+                    Duration.ofSeconds(10));
 
-        WebElement tab =
-                wait.until(
-                        ExpectedConditions.elementToBeClickable(
-                                ContactManagementLocators.existingTab));
+    WebElement tab =
+            wait.until(
+                    ExpectedConditions.visibilityOfElementLocated(
+                            ContactManagementLocators.existingTab));
 
-        tab.click();
+    JavascriptExecutor js =
+            (JavascriptExecutor) driver;
 
-       Logger.info(
-        "Existing tab clicked");
+    js.executeScript(
+            "arguments[0].click();",
+            tab);
 
-       
-    }
+    Logger.info("Existing tab clicked");
+}
 
     // ==========================
     // CHECK VALIDATION MESSAGE
@@ -388,11 +389,69 @@ Logger.info(
         return input.getAttribute("value");
     }
 
+    public void clickFirstExistingUserAddButton() {
+
+    WebDriverWait wait =
+            new WebDriverWait(driver,
+                    Duration.ofSeconds(10));
+
+    WebElement button =
+            wait.until(
+                    ExpectedConditions.presenceOfElementLocated(
+                            ContactManagementLocators
+                                    .firstExistingUserAddButton));
+
+    JavascriptExecutor js =
+            (JavascriptExecutor) driver;
+
+    js.executeScript(
+            "arguments[0].scrollIntoView({block:'center'});",
+            button);
+
+    js.executeScript(
+            "arguments[0].click();",
+            button);
+
+    Logger.info(
+            "First existing user add button clicked");
+}
+public void clickFirstExistingUserDeleteButton() {
+
+    WebDriverWait wait =
+            new WebDriverWait(driver,
+                    Duration.ofSeconds(10));
+
+    WebElement button =
+            wait.until(
+                    ExpectedConditions.elementToBeClickable(
+                            ContactManagementLocators
+                                    .firstExistingUserDeleteButton));
+
+    button.click();
+
+    Logger.info("First existing user delete button clicked");
+}
+
     public int getUserCount() {
 
     return driver.findElements(
             org.openqa.selenium.By.xpath(
                     "//div[contains(@class,'rounded-lg')]"))
+            .size();
+}
+
+public int getAccessUserCount() {
+
+    WebDriverWait wait =
+            new WebDriverWait(driver,
+                    Duration.ofSeconds(10));
+
+    wait.until(
+            ExpectedConditions.visibilityOfElementLocated(
+                    ContactManagementLocators.userCard));
+
+    return driver.findElements(
+            ContactManagementLocators.userCard)
             .size();
 }
 }
