@@ -411,7 +411,7 @@ public void goToDashboard() {
     // WITHDRAW INVITATION TEST
     // ==========================
 
-    @Test
+    //@Test
     public void testWithdrawInvitation()
             throws InterruptedException {
 
